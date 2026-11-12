@@ -1,0 +1,69 @@
+/* Unterrichtsauftrag mit QR-Code – nur beim Drucken sichtbar.
+   Kein neues Fenster und kein externer PDF- oder QR-Dienst nötig. */
+@page {
+  size: A4 portrait;
+  margin: 16mm;
+}
+@media print {
+  html, body, #root { overflow: visible !important; height: auto !important; }
+  body { background: #fff !important; color: #111 !important; }
+  body * { visibility: hidden !important; }
+  #practice-print-card, #practice-print-card * { visibility: visible !important; }
+  #practice-print-card {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 178mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #111 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    border: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    font-family: system-ui, sans-serif;
+    text-align: center;
+  }
+  #practice-print-card h1 { font-size: 22pt; font-weight: 750; margin: 0 0 8mm; }
+  #practice-print-card h2 { font-size: 20pt; font-weight: 700; margin: 0 0 4mm; }
+  #practice-print-card .lesson-print-instructions {
+    font-size: 12pt;
+    max-width: 155mm;
+    margin: 0 auto 5mm;
+    line-height: 1.4;
+  }
+  #practice-print-card .lesson-print-details {
+    font-size: 11pt;
+    line-height: 1.45;
+    font-weight: 650;
+    margin: 0 auto 8mm;
+  }
+  #practice-print-card .lesson-print-qr {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 auto 8mm;
+  }
+  #practice-print-card .lesson-print-qr svg {
+    display: block !important;
+    width: 64mm !important;
+    height: 64mm !important;
+    min-width: 64mm;
+    min-height: 64mm;
+    background: #fff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  #practice-print-card .lesson-print-link {
+    font-size: 9pt;
+    overflow-wrap: anywhere;
+    max-width: 165mm;
+    margin: 0 auto 14mm;
+  }
+  #practice-print-card .lesson-print-names {
+    font-size: 11pt;
+    margin-top: 10mm;
+  }
+}

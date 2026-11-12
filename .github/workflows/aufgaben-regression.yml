@@ -1,0 +1,57 @@
+name: Aufgaben-Regression
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript-Syntax prüfen
+        run: |
+          node --check src/app.js
+          node --check sw.js
+          node --check src/music/notennamen.mjs
+          node --check src/music/tonhoehen.mjs
+          node --check src/music/intervalle.mjs
+          node --check src/music/tonleitern.mjs
+          node --check src/music/akkorde.mjs
+          node --check src/music/bewertung.mjs
+          node --check src/aufgaben/notennamen.mjs
+          node --check src/aufgaben/intervalle.mjs
+          node --check src/aufgaben/tonleitern.mjs
+          node --check src/aufgaben/akkorde.mjs
+          node --check src/aufgaben/rhythmus.mjs
+          node --check src/aufgaben/quintenzirkel-vorzeichen.mjs
+          node --check src/aufgaben/harmoniefunktionen.mjs
+          node --check src/aufgaben/kadenz-analyse.mjs
+          node --check src/ui/notensystem.mjs
+          node --check src/ui/noteneingabe.mjs
+          node --check src/duell/spielregeln.mjs
+          node --check src/duell/rundensteuerung.mjs
+          node --check src/duell/aufgabenpool.mjs
+          node --check src/duell/timer.mjs
+          node --check src/duell/ansicht.mjs
+          node --check src/duell/sitzung.mjs
+          node --check src/unterricht/lernplan.mjs
+          node --check src/unterricht/oberflaeche.mjs
+          node --check src/unterricht/qr-code.mjs
+          node --check src/unterricht/vendor/qrcode.mjs
+          node --check src/unterricht/profile.mjs
+          node --check src/auswertung/themen.mjs
+          node --check src/auswertung/paket.mjs
+          node --check src/auswertung/duell-protokoll.mjs
+          node --check src/auswertung/klasse.mjs
+          node --check src/auswertung/dom.mjs
+          node --check src/auswertung/ergebnis-seite.mjs
+          node --check src/auswertung/lehrer-seite.mjs
+      - name: Noten- und Aufgabentests
+        run: node --test tests/*.test.*
+      - name: Browser-Smoke-Test (Chrome)
+        run: node tests/browser-smoke.cjs

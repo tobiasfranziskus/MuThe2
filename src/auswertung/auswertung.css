@@ -1,0 +1,63 @@
+/* Abgabe- und Lehrerseite: hell, druck- und schwarz-weiß-tauglich. */
+:root {
+  color-scheme: light;
+  --text: #111827;
+  --muted: #4b5563;
+  --line: #d1d5db;
+  --bg: #f8fafc;
+  --card: #fff;
+  --accent: #0f766e;
+  --warn: #b45309;
+  --bad: #b91c1c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.45; -webkit-text-size-adjust: 100%; }
+main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 48px; }
+header.kopf { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin: 8px 0 16px; }
+h1 { font-size: 1.5rem; margin: 0; }
+h2 { font-size: 1.1rem; margin: 0 0 10px; }
+a { color: var(--accent); }
+.karte { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+.hinweis { color: var(--muted); font-size: .9rem; margin: 6px 0; }
+.meldung { padding: 10px 12px; border-radius: 10px; margin: 10px 0; border: 1px solid var(--line); background: #f0fdfa; }
+.meldung.fehler { background: #fef2f2; border-color: #fecaca; color: var(--bad); }
+.zeile { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.feld { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; font-weight: 600; flex: 1 1 200px; }
+input, select, textarea { font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--text); width: 100%; }
+textarea { min-height: 90px; font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+button, .knopf { font: inherit; font-weight: 700; padding: 11px 16px; border-radius: 10px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; min-height: 44px; text-decoration: none; display: inline-flex; align-items: center; }
+button.zweit { background: #fff; color: var(--accent); }
+button.gefahr { background: #fff; color: var(--bad); border-color: var(--bad); }
+button.klein { padding: 4px 10px; min-height: 32px; font-size: .8rem; }
+button:disabled { opacity: .45; cursor: default; }
+.knoepfe { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.qr-box { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 12px; }
+svg.qr { background: #fff; border: 1px solid var(--line); border-radius: 8px; max-width: 100%; height: auto; }
+.tabelle-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .02em; color: var(--muted); white-space: nowrap; }
+th button.sort { all: unset; cursor: pointer; }
+th button.sort:focus-visible { outline: 2px solid var(--accent); }
+td.zahl, th.zahl { text-align: right; font-variant-numeric: tabular-nums; }
+.positiv { color: var(--accent); font-weight: 700; }
+.schwer { color: var(--warn); font-size: .82rem; }
+.balken { position: relative; display: inline-block; width: 110px; height: 20px; border: 1px solid #6b7280; border-radius: 4px; overflow: hidden; background: #fff; vertical-align: middle; }
+.balken-fuellung { position: absolute; inset: 0 auto 0 0; background: #9ca3af; }
+.balken.gut .balken-fuellung { background: #99f6e4; }
+.balken.mittel .balken-fuellung { background: #fde68a; }
+.balken.schwach .balken-fuellung { background: #fecaca; }
+.balken-text { position: relative; display: block; text-align: center; font-size: .75rem; font-weight: 700; line-height: 18px; }
+.kennzahlen { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 10px 0; }
+.kennzahl { border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.kennzahl strong { display: block; font-size: 1.5rem; }
+details summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+@media print {
+  body { background: #fff; }
+  main { max-width: none; padding: 0; }
+  .nicht-drucken, .knoepfe, button { display: none !important; }
+  .karte { border: none; padding: 0; margin-bottom: 12px; break-inside: avoid; }
+  table { font-size: 9pt; }
+  .tabelle-wrap { overflow: visible; }
+}

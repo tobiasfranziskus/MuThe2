@@ -1,0 +1,17 @@
+{
+  "id": "./",
+  "name": "Musiktheorie – Interaktiv & Musikduell",
+  "short_name": "Musiktheorie",
+  "description": "Musiktheorie üben, Noten lesen und gemeinsam im Musikduell spielen – auch offline.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": [
+    "education",
+    "music"
+  ]
+}

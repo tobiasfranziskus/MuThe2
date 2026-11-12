@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Lehrer-Auswertung – Musiktheorie</title>
+    <link rel="stylesheet" href="./src/auswertung/auswertung.css" />
+    <script type="module">
+      import {starteLehrerSeite} from './src/auswertung/lehrer-seite.mjs';
+      starteLehrerSeite(document.getElementById('inhalt'));
+    </script>
+  </head>
+  <body>
+    <main>
+      <header class="kopf">
+        <h1>Lehrer-Auswertung</h1>
+        <a href="./" class="nicht-drucken">← Zur Übungsseite</a>
+      </header>
+      <div id="inhalt"><p class="hinweis">Wird geladen …</p></div>
+      <noscript><p class="meldung fehler">Für diese Seite wird JavaScript benötigt.</p></noscript>
+    </main>
+  </body>
+</html>
