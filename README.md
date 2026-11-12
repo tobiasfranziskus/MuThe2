@@ -1,4 +1,6 @@
-# Musiktheorie – Interaktiv & Musikduell
+# MuThe2 – Musiktheorie & Musikduell
+
+> MuThe2 ist die Weiterentwicklungslinie von `tobiasfranziskus/Musik-Theorie` (Stand `19aed56`) mit Lehrer-Auswertung. Das Original bleibt unverändert.
 
 Interaktive Musiktheorie-Übungen in 13 Themenbereichen und ein Tischduell für zwei bis vier Personen. Die Anwendung ist für die statische Veröffentlichung über GitHub Pages ausgelegt und benötigt zur Ausführung keinen Server und kein Build-System.
 
@@ -46,7 +48,7 @@ Lehrkräfte sehen die Übungsleistung der Klasse, ohne dass ein Server, ein Kont
 
 **Ablauf im Unterricht**
 
-1. Die Lehrkraft öffnet **`lehrer.html`** (z. B. `https://tobiasfranziskus.github.io/Musik-Theorie/lehrer.html`) und zeigt unter „QR-Code für Schüler“ den Link zur Abgabeseite, optional mit vorausgefüllter Gruppe (`ergebnis.html?gruppe=7b`).
+1. Die Lehrkraft öffnet **`lehrer.html`** (z. B. `https://tobiasfranziskus.github.io/MuThe2/lehrer.html`) und zeigt unter „QR-Code für Schüler“ den Link zur Abgabeseite, optional mit vorausgefüllter Gruppe (`ergebnis.html?gruppe=7b`).
 2. Auf dem Schüler-iPad wählt man auf **`ergebnis.html`** das Lernprofil, trägt ein **Kürzel** ein (kein Klarname nötig) und wählt optional den eigenen Namen aus dem Musikduell. „Ergebnis erstellen“ zeigt einen QR-Code, einen Textcode (`MT1…`) und eine Datei zum Speichern oder Teilen (z. B. per AirDrop).
 3. Die Lehrkraft scannt den QR-Code mit der Kamera ihres Geräts. Die Lehrerseite öffnet sich und übernimmt die Abgabe automatisch. Alternativ lassen sich beliebig viele Codes einfügen oder Dateien einlesen.
 
