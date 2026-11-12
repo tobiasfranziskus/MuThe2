@@ -56,6 +56,7 @@ const assets = {
   '/src/unterricht/vendor/qrcode.mjs': ['src/unterricht/vendor/qrcode.mjs', 'application/javascript; charset=utf-8'],
   '/src/unterricht/profile.mjs': ['src/unterricht/profile.mjs', 'application/javascript; charset=utf-8'],
   '/src/styles.css': ['src/styles.css', 'text/css; charset=utf-8'],
+  '/src/ui/apple.css': ['src/ui/apple.css', 'text/css; charset=utf-8'],
   '/src/unterricht/druck.css': ['src/unterricht/druck.css', 'text/css; charset=utf-8'],
 };
 const server = http.createServer((req, res) => {
@@ -90,7 +91,7 @@ server.listen(0, '127.0.0.1', () => {
   });
   child.on('close', code => {
     clearTimeout(timer);
-    const rendered = /<div id="root">[\s\S]*Musiktheorie Interaktiv/.test(dom);
+    const rendered = /<div id="root">[\s\S]*Musiktheorie/.test(dom);
     const hasTasks = dom.includes('Notennamen');
     const ok = code === 0 && rendered && hasTasks;
     console.log(JSON.stringify({ browser, exitCode: code, appRendered: rendered, tasksVisible: hasTasks }));

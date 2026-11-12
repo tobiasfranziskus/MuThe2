@@ -8,7 +8,7 @@
  * Die Lernstände liegen weiterhin ausschließlich im Browser-Storage.
  */
 const CACHE_PREFIX = 'musiktheorie-offline-';
-const CACHE_NAME = CACHE_PREFIX + '2026-11-12-v2';
+const CACHE_NAME = CACHE_PREFIX + '2026-11-12-v3';
 const SHELL_URL = new URL('./', self.registration.scope).href;
 const APP_FILES = [
   "./",
@@ -45,6 +45,7 @@ const APP_FILES = [
   "./src/music/tonhoehen.mjs",
   "./src/music/tonleitern.mjs",
   "./src/styles.css",
+  "./src/ui/apple.css",
   "./src/ui/noteneingabe.mjs",
   "./src/ui/notensystem.mjs",
   "./src/unterricht/druck.css",

@@ -98,8 +98,11 @@ test('Die Konfiguration ist als zustandsfreie JSX-Ansicht testbar',()=>{
     onChange:()=>{},onStart:()=>{},onClose:()=>{},errors:{},
     shareUrl:'https://example.org/?thema=noten',onCopy:()=>{},copied:false,error:'',
   });
-  assert.equal(ui.type,'section');
-  assert.equal(ui.props.id,'practice-setup');
+  assert.equal(ui.props.className,'mt-sheet-backdrop','Einstellungen erscheinen als Sheet über der Startseite');
+  const sheet=ui.props.children;
+  assert.equal(sheet.type,'section');
+  assert.equal(sheet.props.id,'practice-setup');
+  assert.equal(sheet.props.role,'dialog');
   const summary=LearningProgress({errors:{'noten:0':{correct:2,wrong:4}},sections:[{id:'noten',title:'Notennamen'}]});
   assert.equal(summary.type,'section');
 });

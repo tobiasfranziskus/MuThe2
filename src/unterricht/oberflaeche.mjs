@@ -29,9 +29,8 @@ function errorLabel(section,index){
 
 export function createPracticeWidgets(I) {
   function select(label,value,values,onChange){
-    return I.jsxs('label',{className:'flex flex-col gap-1.5 text-xs font-semibold text-slate-200',
-      children:[label,I.jsx('select',{value,onChange:e=>onChange(e.target.value),
-        className:'w-full p-3 bg-slate-900 border border-white/20 rounded-xl text-sm text-white focus:ring-2 focus:ring-teal-400',
+    return I.jsxs('label',{className:'mt-row',
+      children:[I.jsx('span',{children:label}),I.jsx('select',{value,onChange:e=>onChange(e.target.value),
         children:values.map(v=>I.jsx('option',{value:v.value,children:v.label},v.value))})]});
   }
   function PracticeSetup({section,plan,onChange,onStart,onClose,errors={},shareUrl,onCopy,onPrint,copied=false,error=''}) {
@@ -48,52 +47,52 @@ export function createPracticeWidgets(I) {
       ...(section.id==='noten'?[LEVELS.find(item=>item.value===config.difficulty)?.label||config.difficulty]:[]),
       ...(config.focusErrors?['Individuelles Fehlertraining']:[]),
     ];
-    return I.jsxs('section',{id:'practice-setup',className:'bg-slate-800/90 border border-teal-400/50 rounded-2xl p-4 sm:p-6 space-y-4 shadow-lg',
+    return I.jsx('div',{className:'mt-sheet-backdrop',onClick:e=>{if(e.target===e.currentTarget)onClose&&onClose();},
+      children:I.jsxs('section',{id:'practice-setup',className:'mt-sheet',role:'dialog','aria-modal':'true','aria-label':'Übungsrunde konfigurieren',
       children:[
-        I.jsxs('div',{className:'flex justify-between gap-3 items-start',children:[
-          I.jsxs('div',{children:[I.jsx('h2',{className:'text-lg font-bold text-teal-200',children:'Übungsrunde konfigurieren'}),I.jsx('p',{className:'text-sm text-slate-300',children:section.title})]}),
-          I.jsx('button',{type:'button',onClick:onClose,className:'text-sm px-2 py-1 rounded-lg text-slate-200 bg-white/10',children:'Schließen'})]}),
-        I.jsxs('div',{className:'grid grid-cols-1 sm:grid-cols-2 gap-3',children:[
+        I.jsxs('div',{className:'mt-sheet-head',children:[
+          I.jsxs('div',{children:[I.jsx('h2',{children:'Übungsrunde'}),I.jsx('p',{children:section.title})]}),
+          I.jsx('button',{type:'button',onClick:onClose,className:'mt-btn mt-btn-ghost mt-btn-small',children:'Fertig'})]}),
+        I.jsxs('div',{className:'mt-sheet-body',children:[
+        I.jsxs('div',{className:'mt-group',children:[
           select('Anzahl der Fragen',String(config.count),[5,10,15,20,30].map(n=>({value:String(n),label:n+' Fragen'})),v=>set('count',Number(v))),
           select('Aufgabenart',config.mode,TYPES,v=>set('mode',v)),
           select('Notenschlüssel',config.clef,CLEFS,v=>set('clef',v)),
           section.id==='noten'?select('Schwierigkeitsgrad',config.difficulty,LEVELS,v=>set('difficulty',v)):
-            I.jsx('p',{className:'text-xs text-slate-400 self-center',children:'Weitere Schwierigkeitsstufen werden für dieses Thema schrittweise ergänzt.'}),
+            I.jsx('p',{className:'mt-hint mt-row',children:'Weitere Schwierigkeitsstufen werden für dieses Thema schrittweise ergänzt.'}),
         ]}),
-        I.jsxs('div',{className:'flex flex-wrap items-center gap-3',children:[
-          I.jsx('button',{type:'button','aria-pressed':config.focusErrors,onClick:()=>set('focusErrors',!config.focusErrors),
-            className:'text-sm font-semibold border rounded-xl px-3 py-2 '+(config.focusErrors?'bg-amber-500/20 border-amber-300 text-amber-200':'bg-white/5 border-white/20 text-slate-200'),
-            children:(config.focusErrors?'☑ ':'☐ ')+'Fehler gezielt üben'}),
-          I.jsx('span',{className:'text-xs text-slate-400',children:weak.length?weak.length+' Fehlerschwerpunkte erkannt':'Fehlertraining wird nach ersten Antworten wirksam'}),
-        ]}),
-        error?I.jsx('p',{role:'alert',className:'text-amber-300 text-xs',children:error}):null,
-        I.jsx('button',{type:'button',onClick:onStart,className:'w-full py-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-base',children:'▶ Übung starten'}),
-        I.jsxs('div',{className:'border-t border-white/10 pt-3 space-y-2',children:[
-          I.jsx('p',{className:'text-sm font-semibold text-slate-200',children:'Unterrichtslink – direkt mit diesen Einstellungen starten'}),
-          I.jsxs('div',{className:'flex flex-col sm:flex-row gap-2',children:[
+        I.jsx('div',{className:'mt-group',children:I.jsxs('button',{type:'button','aria-pressed':config.focusErrors,onClick:()=>set('focusErrors',!config.focusErrors),
+            className:'mt-row mt-toggle',
+            children:[I.jsx('span',{children:'Fehler gezielt üben'}),I.jsx('span',{className:'mt-switch'+(config.focusErrors?' is-on':''),'aria-hidden':'true'})]})}),
+        I.jsx('p',{className:'mt-hint',children:weak.length?weak.length+' Fehlerschwerpunkte erkannt':'Fehlertraining wird nach ersten Antworten wirksam'}),
+        error?I.jsx('p',{role:'alert',className:'mt-error',children:error}):null,
+        I.jsx('button',{type:'button',onClick:onStart,className:'mt-btn mt-btn-primary mt-btn-block',children:'▶ Übung starten'}),
+        I.jsxs('div',{className:'mt-details-body',style:{padding:0},children:[
+          I.jsx('h3',{className:'mt-card-title',style:{margin:'8px 0 0'},children:'Unterrichtslink – direkt mit diesen Einstellungen starten'}),
+          I.jsxs('div',{style:{display:'flex',gap:'8px'},children:[
             I.jsx('input',{readOnly:true,value:shareUrl,onFocus:e=>e.currentTarget.select(),onClick:e=>e.currentTarget.select(),
-              'aria-label':'Unterrichtslink',className:'flex-1 min-w-0 bg-slate-900 border border-white/20 rounded-lg p-2 text-xs text-slate-200'}),
-            I.jsx('button',{type:'button',onClick:onCopy,className:'px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-bold',children:copied?'Kopiert!':'Link kopieren'}),
+              'aria-label':'Unterrichtslink',className:'mt-input',style:{flex:1,minWidth:0,fontSize:'14px'}}),
+            I.jsx('button',{type:'button',onClick:onCopy,className:'mt-btn mt-btn-ghost',children:copied?'Kopiert!':'Link kopieren'}),
           ]}),
-          I.jsx('p',{className:'text-xs text-slate-400',children:'Der Link enthält nur die Übungseinstellungen, keine Ergebnisse oder persönlichen Daten.'}),
+          I.jsx('p',{className:'mt-hint',children:'Der Link enthält nur die Übungseinstellungen, keine Ergebnisse oder persönlichen Daten.'}),
           qr&&typeof onPrint==='function'?I.jsx('button',{
             type:'button',onClick:onPrint,
-            className:'w-full px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm rounded-xl border border-white/20',
+            className:'mt-btn mt-btn-ghost',
             children:'Auftragskarte mit QR-Code drucken',
           }):null,
-          I.jsxs('details',{className:'rounded-xl bg-white/5 border border-white/10 p-3',children:[
-            I.jsx('summary',{className:'cursor-pointer text-teal-200 font-bold text-sm select-none',children:'QR-Code für Schüler-iPads anzeigen'}),
-            qr?I.jsxs('div',{className:'flex flex-col items-start gap-2 mt-3',children:[
+          I.jsxs('details',{className:'mt-details',children:[
+            I.jsx('summary',{children:'QR-Code für Schüler-iPads anzeigen'}),
+            qr?I.jsxs('div',{className:'mt-details-body',style:{alignItems:'flex-start'},children:[
               I.jsxs('svg',{viewBox:qr.viewBox,width:232,height:232,
                 xmlns:'http://www.w3.org/2000/svg',role:'img',
                 'aria-label':'QR-Code für diesen Unterrichtslink',
-                className:'max-w-full h-auto bg-white rounded-lg shadow p-1',
+                className:'max-w-full h-auto bg-white rounded-lg shadow p-1',style:{borderRadius:'12px'},
                 children:[
                   I.jsx('rect',{x:0,y:0,width:qr.size,height:qr.size,fill:'#ffffff'}),
                   I.jsx('path',{d:qr.path,fill:'#111111'}),
                 ]}),
-              I.jsx('p',{className:'text-xs text-slate-300',children:'Mit der iPad-Kamera scannen. Der QR-Code wird direkt auf diesem Gerät erzeugt und benötigt keinen fremden Dienst.'}),
-            ]}):I.jsx('p',{className:'text-xs text-amber-200 mt-2',children:'Für diesen Link kann kein QR-Code erzeugt werden. Bitte den Link kopieren.'}),
+              I.jsx('p',{className:'mt-hint',children:'Mit der iPad-Kamera scannen. Der QR-Code wird direkt auf diesem Gerät erzeugt und benötigt keinen fremden Dienst.'}),
+            ]}):I.jsx('p',{className:'mt-error',style:{margin:'0 16px 16px'},children:'Für diesen Link kann kein QR-Code erzeugt werden. Bitte den Link kopieren.'}),
           ]}),
           qr?I.jsxs('section',{
             id:'practice-print-card',
@@ -119,17 +118,18 @@ export function createPracticeWidgets(I) {
             ],
           }):null,
         ]}),
-      ]});
+        ]}),
+      ]})});
   }
   function LearningProgress({errors={},sections=[]}){
     const all=learningSummary(errors);
     if(!all.length)return null;
     const total=all.reduce((acc,e)=>({correct:acc.correct+e.correct,wrong:acc.wrong+e.wrong}),{correct:0,wrong:0});
-    return I.jsxs('section',{className:'bg-white/5 border border-white/10 rounded-2xl p-4 space-y-3',
+    return I.jsxs('section',{className:'mt-card',style:{display:'flex',flexDirection:'column',gap:'10px'},
       children:[
-        I.jsx('h2',{className:'text-sm font-bold text-white',children:'Mein Lernfortschritt'}),
+        I.jsx('h2',{className:'mt-card-title',style:{margin:0},children:'Mein Lernfortschritt'}),
         I.jsx('p',{className:'text-xs text-slate-300',children:total.correct+' richtige · '+total.wrong+' falsche Antworten · Trefferquote '+Math.round(100*total.correct/Math.max(1,total.correct+total.wrong))+' %'}),
-        I.jsx('div',{className:'grid grid-cols-1 sm:grid-cols-2 gap-2',children:all.slice(0,6).map(v=>{
+        I.jsx('div',{className:'grid grid-cols-1 gap-2',children:all.slice(0,6).map(v=>{
           const index=Number(v.key.split(':').pop()),topic=v.key.slice(0,v.key.lastIndexOf(':'));
           const sec=sections.find(s=>s.id===topic);
           return I.jsxs('div',{className:'bg-white/5 rounded-lg p-2 text-xs',children:[
@@ -142,7 +142,7 @@ export function createPracticeWidgets(I) {
       ]});
   }
   function ProfilePicker({profiles=[],current='standard',onSelect,newName='',onName,onAdd,onRemove}) {
-    return I.jsxs('section',{className:'bg-white/5 border border-white/10 rounded-2xl p-4 space-y-3',
+    return I.jsxs('section',{className:'mt-card',style:{display:'flex',flexDirection:'column',gap:'10px'},
       children:[
         I.jsx('h2',{className:'text-sm font-bold text-slate-100',children:'Lernprofil auf diesem iPad'}),
         I.jsxs('div',{className:'flex flex-col sm:flex-row gap-2 items-stretch',children:[
