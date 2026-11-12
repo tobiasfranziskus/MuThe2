@@ -49,6 +49,7 @@ const assets = {
   '/src/duell/ansicht.mjs': ['src/duell/ansicht.mjs', 'application/javascript; charset=utf-8'],
   '/src/duell/sitzung.mjs': ['src/duell/sitzung.mjs', 'application/javascript; charset=utf-8'],
   '/src/auswertung/duell-protokoll.mjs': ['src/auswertung/duell-protokoll.mjs', 'application/javascript; charset=utf-8'],
+  '/src/music/audio-start.mjs': ['src/music/audio-start.mjs', 'application/javascript; charset=utf-8'],
   '/src/unterricht/lernplan.mjs': ['src/unterricht/lernplan.mjs', 'application/javascript; charset=utf-8'],
   '/src/unterricht/oberflaeche.mjs': ['src/unterricht/oberflaeche.mjs', 'application/javascript; charset=utf-8'],
   '/src/unterricht/qr-code.mjs': ['src/unterricht/qr-code.mjs', 'application/javascript; charset=utf-8'],

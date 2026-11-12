@@ -87,7 +87,7 @@ test('Skalierung, horizontales Scrollen und 180° ändern die Notenpositionen ni
 });
 
 test('Neuer Cache-Name ist für aktualisierte iPad-Stile vorgesehen',()=>{
-  assert.ok(sw.includes("CACHE_NAME = CACHE_PREFIX + '2026-11-12-v1'"));
+  assert.ok(sw.includes("CACHE_NAME = CACHE_PREFIX + '2026-11-12-v2'"));
   assert.ok(sw.includes('"./src/styles.css"'));
   assert.ok(!sw.includes("CACHE_NAME = CACHE_PREFIX + '2026-11-03-v1'"));
 });

@@ -8,7 +8,7 @@
  * Die Lernstände liegen weiterhin ausschließlich im Browser-Storage.
  */
 const CACHE_PREFIX = 'musiktheorie-offline-';
-const CACHE_NAME = CACHE_PREFIX + '2026-11-12-v1';
+const CACHE_NAME = CACHE_PREFIX + '2026-11-12-v2';
 const SHELL_URL = new URL('./', self.registration.scope).href;
 const APP_FILES = [
   "./",
@@ -37,6 +37,7 @@ const APP_FILES = [
   "./src/duell/spielregeln.mjs",
   "./src/duell/timer.mjs",
   "./src/music/akkorde.mjs",
+  "./src/music/audio-start.mjs",
   "./src/music/beispiel-audio.mjs",
   "./src/music/bewertung.mjs",
   "./src/music/intervalle.mjs",

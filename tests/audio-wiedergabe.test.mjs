@@ -39,5 +39,8 @@ test('Echter Anwendungscode verwendet die Audioentscheidung und reaktiviert iOS-
   const app=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
   assert.match(app,/playableTaskAudio\(N\)/);
   assert.match(app,/playTaskAudio\(N,\{playNotes:Ut,playRhythm:Gt,playChords:Kt\}\)/);
-  assert.match(app,/Bt\.state!==`running`/);
+  assert.match(app,/function P\(\)\{return holeAudioKontext\(\)\}/);
+  const start=readFileSync(new URL('../src/music/audio-start.mjs',import.meta.url),'utf8');
+  assert.match(start,/state === 'running'/);
+  assert.match(start,/resume\(\)/);
 });
