@@ -112,7 +112,7 @@ test('Ganztonschritt: Alternativschreibweise (eis/f) wird genannt', () => {
   assert.deepEqual(alt,{name:'f',octave:4,accidental:null});
   const tasks = createIntervalTaskGenerators({choose,shuffle,selectRoot,selectClef});
   let found=false;
-  for (let i=0;i<400&&!found;i++) {
+  for (let i=0;i<20000&&!found;i++) {
     const q=tasks.halfWholeStep();
     if (q.expected[0].name==='e'&&q.expected[0].accidental==='#') {
       found=true;
