@@ -119,6 +119,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     // Nur HTTPS/GitHub Pages bzw. localhost: auf Dateisystem oder unsicherem
     // HTTP bleibt die Anwendung ohne Offline-Zwischenspeicherung benutzbar.
     if ('serviceWorker' in navigator) {
+      // Neue Programmversion: Einmal automatisch neu laden, sobald der neue
+      // Service Worker übernimmt (sonst erscheint sie erst beim zweiten Öffnen).
+      if (navigator.serviceWorker.controller) {
+        let reloaded = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (reloaded) return;
+          reloaded = true;
+          window.location.reload();
+        });
+      }
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js', { scope: './' })
           .then(registration => registration.update())
