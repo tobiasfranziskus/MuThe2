@@ -294,3 +294,4 @@ select {
   background: var(--mt-card-3); color: var(--mt-label); font-weight: 700; box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
 }
 label.uppercase { text-transform: none !important; letter-spacing: 0 !important; font-size: 13px !important; color: var(--mt-label-2) !important; }
+.mt-version { font-size: 12px; color: var(--mt-label-3); }
