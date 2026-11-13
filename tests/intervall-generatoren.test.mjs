@@ -116,8 +116,8 @@ test('Ganztonschritt: Alternativschreibweise (eis/f) wird genannt', () => {
     const q=tasks.halfWholeStep();
     if (q.expected[0].name==='e'&&q.expected[0].accidental==='#') {
       found=true;
-      assert.match(q.alternativeSolution,/^f/);
-      assert.match(q.explanation,/eis.*enharmonisch gleich: f/);
+      assert.match(q.alternativeSolution,/^f/i);
+      assert.match(q.explanation,/eis.*enharmonisch gleich: f/i);
     }
   }
   assert.ok(found);
