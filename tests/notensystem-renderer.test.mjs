@@ -89,7 +89,7 @@ const fixtures = [
         ]
       }
     ],
-    "expected": "7bcda366"
+    "expected": "43b51d7a"
   },
   {
     "label": "Generalvorzeichen: sechs Bs",
@@ -220,7 +220,7 @@ const fixtures = [
         ]
       }
     ],
-    "expected": "fc1ba863"
+    "expected": "ad935def"
   },
   {
     "label": "Leeres Klaviersystem",
@@ -380,7 +380,7 @@ const fixtures = [
       ],
       true
     ],
-    "expected": "7cc288b8"
+    "expected": "e85b6abc"
   },
   {
     "label": "Noteneingabe gestapelter Akkord, unbearbeitet",

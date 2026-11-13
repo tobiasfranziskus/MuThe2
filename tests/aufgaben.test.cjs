@@ -378,7 +378,7 @@ test('Duell-Hook bleibt bedingungslos vor dem Dialog-Render eingebunden', () => 
 });
 
 test('Notennamen: Anfänger-Schaltfläche und normale Übungen bleiben getrennt', () => {
-  assert.ok(bundle.includes('🌱 Anfänger · ohne Vorzeichen'));
+  assert.ok(bundle.includes('🌱 Ohne Vorzeichen'));
   assert.ok(bundle.includes('onClick:()=>M(e,!1,!0)'));
   assert.ok(bundle.includes('t.id===`noten`&&beginner?t.gens.filter(e=>e!==Te):t.gens'),
     'Enharmonik wird in der Anfänger-Runde übersprungen');
