@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createIntervalTaskGenerators } from '../src/aufgaben/intervalle.mjs';
+import { createIntervalTaskGenerators, enharmonicSpelling } from '../src/aufgaben/intervalle.mjs';
+import { chromaticPitch } from '../src/music/tonhoehen.mjs';
 
 function seeded(seed) {
   let state = seed >>> 0;
@@ -57,7 +58,7 @@ test('alle vier Intervallarten liefern gültige Aufgaben in allen Schlüsseln', 
           }
           if (type === 'listeningInterval') {
             assert.equal(q.hearing, true);
-            assert.equal(q.audioMode, 'melodic');
+            assert.equal(q.audioMode, 'both');
             assert.equal(q.expected.length, 2);
           }
           checked++;
@@ -88,20 +89,36 @@ test('Halbtonschritte akzeptieren Enharmonik, notierte Intervalle nicht', () => 
   }
 });
 
-test('Höraufgabe bietet auf- und absteigende Intervalle an', () => {
+test('Höraufgabe: Intervalle nur aufwärts, erst nacheinander, dann gemeinsam', () => {
   const oldRandom = Math.random;
   const tasks = createIntervalTaskGenerators({choose,shuffle,selectRoot,selectClef});
   try {
     Math.random = seeded(12345);
-    let up = 0, down = 0;
     for (let i=0;i<200;i++) {
       const q=tasks.listeningInterval();
-      if (q.explanation.includes('(aufwärts)')) up++;
-      if (q.explanation.includes('(abwärts)')) down++;
       assert.match(q.q,/Welches Intervall hörst du/);
+      assert.ok(!q.explanation.includes('abwärts'));
+      assert.ok(q.explanation.includes('(aufwärts)'));
+      const [low,high]=q.expected;
+      assert.ok(chromaticPitch(high.name,high.octave,high.accidental)>chromaticPitch(low.name,low.octave,low.accidental));
     }
-    assert.ok(up>0 && down>0);
   } finally {
     Math.random = oldRandom;
   }
+});
+
+test('Ganztonschritt: Alternativschreibweise (eis/f) wird genannt', () => {
+  const alt=enharmonicSpelling({name:'e',octave:4,accidental:'#'});
+  assert.deepEqual(alt,{name:'f',octave:4,accidental:null});
+  const tasks = createIntervalTaskGenerators({choose,shuffle,selectRoot,selectClef});
+  let found=false;
+  for (let i=0;i<400&&!found;i++) {
+    const q=tasks.halfWholeStep();
+    if (q.expected[0].name==='e'&&q.expected[0].accidental==='#') {
+      found=true;
+      assert.match(q.alternativeSolution,/^f/);
+      assert.match(q.explanation,/eis.*enharmonisch gleich: f/);
+    }
+  }
+  assert.ok(found);
 });

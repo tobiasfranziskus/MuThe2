@@ -18,7 +18,8 @@ export function playableTaskAudio(task) {
       notes, melodic:notes.length === 2};
   }
   if (Array.isArray(task.expected) && task.expected.length && task.expected.every(isSounding)) {
-    return {kind:'notes', notes:task.expected, melodic:task.audioMode !== 'chord'};
+    return {kind:'notes', notes:task.expected,
+      melodic:task.audioMode === 'both' ? 'both' : task.audioMode !== 'chord'};
   }
   return null;
 }
