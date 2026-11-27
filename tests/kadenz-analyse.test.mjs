@@ -126,3 +126,39 @@ test('Harmonische Analyse verwendet den gemeinsamen Funktionskatalog', () => {
   assert.equal(count,350);
   assert.equal(highlighted.size,4);
 });
+
+test('Stimmführung: jedes Beispiel enthält genau die behauptete Parallele (sonst keine)', () => {
+  const halbtoene = {c:0, d:2, e:4, f:5, g:7, a:9, h:11};
+  const hoehe = n => 12 * n.octave + halbtoene[n.name];
+  const gefunden = new Map();
+  const saved = Math.random;
+  try {
+    Math.random = seeded(77001);
+    const generators = fixture();
+    for (let i = 0; i < 120; i++) {
+      const task = generators.voiceLeading();
+      const [a, b] = task.staff.chords.map(c => [...c.bass, ...c.treble]);
+      gefunden.set(JSON.stringify([a, b]), {antwort: task.options[task.correct], a, b});
+    }
+  } finally {
+    Math.random = saved;
+  }
+  assert.equal(gefunden.size, 3);
+  for (const {antwort, a, b} of gefunden.values()) {
+    const x = a.map(hoehe), y = b.map(hoehe);
+    for (const toene of [x, y]) assert.deepEqual(toene, [...toene].sort((p, q) => p - q), 'keine Stimmkreuzung');
+    const fehler = new Set();
+    for (let i = 0; i < 4; i++) {
+      for (let j = i + 1; j < 4; j++) {
+        const vorher = (x[j] - x[i]) % 12, nachher = (y[j] - y[i]) % 12;
+        // beide Stimmen bewegen sich in eine reine Quinte/Oktave, die vorher schon bestand
+        // (Parallele oder Antiparallele)
+        if (x[i] !== y[i] && x[j] !== y[j] && vorher === nachher && (nachher === 0 || nachher === 7)) {
+          fehler.add(nachher === 0 ? 'Parallele Oktaven' : 'Parallele Quinten');
+        }
+      }
+    }
+    assert.deepEqual([...fehler], antwort === 'Kein Stimmführungsfehler' ? [] : [antwort]);
+    for (let i = 0; i < 3; i++) assert.ok(Math.abs(y[i + 1] - x[i + 1]) <= 7, 'keine großen Sprünge in den Oberstimmen');
+  }
+});
